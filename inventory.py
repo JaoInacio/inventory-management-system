@@ -3,7 +3,7 @@
 import pprint
 
 # Contem as variaveis do sistema
-option = 0
+done = False
 store = {}
 pp = pprint.PrettyPrinter(depth = 4)
 menu_itens = """ 1- Adicionar\n 2- Remover\n 3- Atualizar\n 4- Listar\n 5- Sair"""
@@ -16,13 +16,18 @@ menu()
 
 # Inicializando menu
 def initialize() :
-    question = int(input("Qual opcao deseja?  "))
+    question = int(input("Qual opcao deseja?\n > "))
     print(division)
     return question
 option = initialize()
 
+# Listando itens
+def list_items() :
+    for i, item in enumerate(store.values()) :
+        print(f"{i+1}. {item['name']}\n quantidade em estoque ({item['descricao']})")
+
 # Contem a logica do menu
-while option < 5 :
+while not done :
     if option == 1 :
         print("Voce escolheu a opcao 1.")
         item_name = input("Qual item deseja adicionar? \n")
@@ -30,6 +35,7 @@ while option < 5 :
         description = input("Descricao. \n")
         value = float(input("Valor por unidade. \n"))
         store[item_name] = {
+            "name" : item_name,
             "unidades" : unit,
             "descricao" : description,
             "valor" : value
@@ -49,8 +55,7 @@ while option < 5 :
         print(new_item)
     elif option == 4 :
         print("Voce escolheu a opcao 4.")
-        pp.pprint(store)
-        break
+        list_items()
     print(division)
     menu()
     print(division)
