@@ -12,14 +12,14 @@ division = "=" * 50
 # Contem o menu
 def menu() :
     print(menu_itens)
-menu()
+
 
 # Inicializando menu
 def initialize() :
     question = int(input("Qual opcao deseja?\n > "))
     print(division)
     return question
-option = initialize()
+
 
 # Listando itens
 def list_items() :
@@ -28,6 +28,12 @@ def list_items() :
 
 # Contem a logica do menu
 while not done :
+    print(division)
+    menu()
+    print(division)
+    option = initialize()
+    
+    
     if option == 1 :
         print("Voce escolheu a opcao 1.")
         item_name = input("Qual item deseja adicionar? \n")
@@ -56,7 +62,8 @@ while not done :
     elif option == 4 :
         print("Voce escolheu a opcao 4.")
         list_items()
-    print(division)
-    menu()
-    print(division)
-    option = initialize()
+    elif option == 5 :
+        print("Encerrando sistema!")
+        done = True
+    else :
+        print(f"Voce escolheu {option} escolha um opção válida!")
