@@ -35,7 +35,7 @@ while not done :
     
     
     if option == 1 :
-        print("Voce escolheu a opcao 1.")
+        print(f"Voce escolheu a opção {option}.")
         item_name = input("Qual item deseja adicionar? \n")
         unit = int(input("Quantas unidades? \n"))
         description = input("Descricao. \n")
@@ -46,21 +46,24 @@ while not done :
             "descricao" : description,
             "valor" : value
             }
-        pp.pprint(f"Item adicionado com sucesso!\n {store}")
+        print("Item adicionado com sucesso!")
     elif option == 2 :
-        print("Voce escolheu a opcao 2.")
-        item_name = input("Qual item deseja remover? \n")
-        store.pop(item_name)
-        print(store)
+        print(f"Voce escolheu a opção {option}.")
+        list_items()
+        item_num = int(input("Informe o numero do item que deseja remover.\n"))
+        if item_num <= len(store) :
+            item_name = list(store.keys())[item_num - 1]
+            del store[item_name]
+            print("Item removido com sucesso!")
     elif option == 3 :
-        question = input(f"Voce ecolheu opcao 3, qual item deseja atualizar?\n")
+        question = input(f"Voce ecolheu a opção {option}, qual item deseja atualizar?\n")
         pp.pprint(store)
         item_key = store.update(item_name)
         new_item = input("Qual o nome do novo item? \n")
         pp.pprint(f"Item atualizado com sucesso!\n {store}")
         print(new_item)
     elif option == 4 :
-        print("Voce escolheu a opcao 4.")
+        print(f"Voce escolheu a opção {option}.")
         list_items()
     elif option == 5 :
         print("Encerrando sistema!")
