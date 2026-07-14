@@ -1,16 +1,13 @@
-"""Sistema de gerenciamento de Inventario"""
-# Contem modulo
-import pprint
+print("Sistema de gerenciamento de Inventario")
 
 # Contem as variaveis do sistema
 done = False
 store = {}
-pp = pprint.PrettyPrinter(depth = 4)
-menu_itens = """ 1- Adicionar\n 2- Remover\n 3- Atualizar\n 4- Listar\n 5- Sair"""
 division = "=" * 50
 
 # Contem o menu
-def menu() :
+def show_menu() :
+    menu_itens = " 1 - Adicionar\n 2 - Remover\n 3 - Atualizar\n 4 - Listar\n 5 - Sair"
     print(menu_itens)
 
 
@@ -20,8 +17,21 @@ def initialize() :
     print(division)
     return question
 
+# Criando items
+def create_item() :
+    item_name = input("Qual nome do item? \n")
+    unit = int(input("Quantas unidades? \n"))
+    description = input("Descrição. \n")
+    value = float(input("Valor por unidade. \n"))
+    store[item_name] = {
+        "name" : item_name,
+        "unidades" : unit,
+        "descricao" : description,
+        "valor" : value
+    }
 
-# Listando itens
+
+# Listando items
 def list_items() :
     for i, item in enumerate(store.values()) :
         print(f"{i+1}. {item['name']}\n quantidade em estoque ({item['descricao']})")
@@ -29,23 +39,13 @@ def list_items() :
 # Contem a logica do menu
 while not done :
     print(division)
-    menu()
+    show_menu()
     print(division)
     option = initialize()
     
-    
     if option == 1 :
         print(f"Voce escolheu a opção {option}.")
-        item_name = input("Qual item deseja adicionar? \n")
-        unit = int(input("Quantas unidades? \n"))
-        description = input("Descricao. \n")
-        value = float(input("Valor por unidade. \n"))
-        store[item_name] = {
-            "name" : item_name,
-            "unidades" : unit,
-            "descricao" : description,
-            "valor" : value
-            }
+        create_item()
         print("Item adicionado com sucesso!")
     elif option == 2 :
         print(f"Voce escolheu a opção {option}.")
@@ -56,12 +56,14 @@ while not done :
             del store[item_name]
             print("Item removido com sucesso!")
     elif option == 3 :
-        question = input(f"Voce ecolheu a opção {option}, qual item deseja atualizar?\n")
-        pp.pprint(store)
-        item_key = store.update(item_name)
-        new_item = input("Qual o nome do novo item? \n")
-        pp.pprint(f"Item atualizado com sucesso!\n {store}")
-        print(new_item)
+        print(f"Voce ecolheu a opção {option}, qual item deseja atualizar?")
+        list_items()
+        item_num = int(input("Informe o numero do item que deseja atualizar.\n")) 
+        if item_num <= len(store) :
+            item_name = list(store.keys()) [item_num - 1]
+            del store[item_name]
+            create_item()
+            print(f"Item atualizado com sucesso!\n")
     elif option == 4 :
         print(f"Voce escolheu a opção {option}.")
         list_items()
