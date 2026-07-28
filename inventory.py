@@ -17,7 +17,8 @@ def initialize() :
     print(division)
     return question
 
-# Criando items
+
+# Criando itens
 def create_item() :
     item_name = input("Qual nome do item? \n")
     unit = int(input("Quantas unidades? \n"))
@@ -31,10 +32,29 @@ def create_item() :
     }
 
 
-# Listando items
+# Deletando itens
+def delete_item() :
+    item_num = int(input("Informe o numero do item que deseja remover.\n"))
+    if item_num <= len(store) :
+        item_name =list(store.keys()) [item_num - 1]
+        del store[item_name]
+        print("Item removido com sucesso!")
+
+
+# Listando itens
 def list_items() :
     for i, item in enumerate(store.values()) :
         print(f"{i+1}. {item['name']}\n quantidade em estoque ({item['descricao']})")
+
+
+# Atualizando item
+def update_item() :
+    item_num = int(input("Informe o numero do item que deseja atualizar.\n > "))
+    if item_num <= len(store) :
+        item_name = list(store.keys()) [item_num - 1]
+        del store[item_name]
+        create_item()
+        print("Item atualizado com sucesso!")
 
 # Contem a logica do menu
 while not done :
@@ -50,20 +70,11 @@ while not done :
     elif option == 2 :
         print(f"Voce escolheu a opção {option}.")
         list_items()
-        item_num = int(input("Informe o numero do item que deseja remover.\n"))
-        if item_num <= len(store) :
-            item_name = list(store.keys())[item_num - 1]
-            del store[item_name]
-            print("Item removido com sucesso!")
+        delete_item()
     elif option == 3 :
         print(f"Voce ecolheu a opção {option}, qual item deseja atualizar?")
         list_items()
-        item_num = int(input("Informe o numero do item que deseja atualizar.\n")) 
-        if item_num <= len(store) :
-            item_name = list(store.keys()) [item_num - 1]
-            del store[item_name]
-            create_item()
-            print(f"Item atualizado com sucesso!\n")
+        update_item()
     elif option == 4 :
         print(f"Voce escolheu a opção {option}.")
         list_items()
