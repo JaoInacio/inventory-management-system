@@ -12,7 +12,7 @@ def show_menu() :
 
 
 # Inicializando menu
-def initialize() :
+def get_option() :
     question = int(input("Qual opcao deseja?\n > "))
     print(division)
     return question
@@ -61,7 +61,7 @@ while not done :
     print(division)
     show_menu()
     print(division)
-    option = initialize()
+    option = get_option()
     
     if option == 1 :
         print(f"Voce escolheu a opção {option}.")
