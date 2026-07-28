@@ -1,9 +1,9 @@
-print("Sistema de gerenciamento de Inventario")
+# Importando modulo
+from modules.variables import (
+    store,
+    div
+)
 
-# Contem as variaveis do sistema
-done = False
-store = {}
-division = "=" * 50
 
 # Contem o menu
 def show_menu() :
@@ -14,7 +14,7 @@ def show_menu() :
 # Inicializando menu
 def get_option() :
     question = int(input("Qual opcao deseja?\n > "))
-    print(division)
+    print(div)
     return question
 
 
@@ -47,6 +47,7 @@ def list_items() :
         print(f"{i+1}. {item['name']}\n quantidade em estoque ({item['descricao']})")
 
 
+
 # Atualizando item
 def update_item() :
     item_num = int(input("Informe o numero do item que deseja atualizar.\n > "))
@@ -55,31 +56,3 @@ def update_item() :
         del store[item_name]
         create_item()
         print("Item atualizado com sucesso!")
-
-# Contem a logica do menu
-while not done :
-    print(division)
-    show_menu()
-    print(division)
-    option = get_option()
-    
-    if option == 1 :
-        print(f"Voce escolheu a opção {option}.")
-        create_item()
-        print("Item adicionado com sucesso!")
-    elif option == 2 :
-        print(f"Voce escolheu a opção {option}.")
-        list_items()
-        delete_item()
-    elif option == 3 :
-        print(f"Voce ecolheu a opção {option}, qual item deseja atualizar?")
-        list_items()
-        update_item()
-    elif option == 4 :
-        print(f"Voce escolheu a opção {option}.")
-        list_items()
-    elif option == 5 :
-        print("Encerrando sistema!")
-        done = True
-    else :
-        print(f"Voce escolheu {option} escolha um opção válida!")
