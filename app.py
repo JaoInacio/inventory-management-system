@@ -5,7 +5,8 @@ from modules.crud import (
     create_item,
     delete_item,
     list_items,
-    update_item
+    update_item,
+    check_stock
 )
 
 from modules.variables import (
@@ -40,6 +41,8 @@ while not done :
         print(f"Voce escolheu a opção {option}.")
         list_items()
     elif option == 5 :
+        check_stock()
+    elif option == 6 :
         print("Encerrando sistema!")
         done = True
     else :
