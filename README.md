@@ -30,7 +30,8 @@ inventory-management-system/
 └── modules/
     ├── __init__.py         # (Opcional)
     ├── crud.py             # Operações CRUD
-    └── variables.py        # Variáveis globais do sistema
+    ├── menu.py             # Lógica do menu (mostra opções, lê input, chama funções do CRUD, etc.)
+    └── variables.py        # Variáveis globais do sistema (ex.: done, store, div)
 ```
 
 ---
