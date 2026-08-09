@@ -43,4 +43,7 @@ def view_menu() :
             print("Encerrando sistema!")
             done = True
         else :
-            print(f"Voce escolheu {option} escolha um opção válida!")
+            if option == None :
+                print("Escolha um opção válida!")
+            else :
+                print(f"Você escolheu {option}, escolha uma opção válida!")

@@ -13,32 +13,39 @@ def show_menu() :
 
 # Inicializando menu
 def get_option() :
-    question = int(input("Qual opcao deseja?\n > "))
-    print(div)
-    return question
+    try :
+        question = int(input("Qual opcao deseja?\n > "))
+        print(div)
+        return question
+    except ValueError:
+        print("Digite apenas números.")
+
 
 
 # Criando itens
 def create_item() :
-    item_name = input("Qual nome do item? \n")
-    unit = int(input("Quantas unidades? \n"))
-    description = input("Descrição. \n")
-    value = float(input("Valor por unidade. \n"))
+    item_name = input("Qual nome do item?\n > ")
+    unit = get_int("Quantas unidades?\n > ")
+    description = input("Descrição.\n > ")
+    value = get_float("Valor por unidade.\n> ")
     store[item_name] = {
         "nome" : item_name,
         "unidades" : unit,
         "descricao" : description,
         "valor" : value
     }
+    
 
 
 # Deletando itens
 def delete_item() :
-    item_num = int(input("Informe o numero do item que deseja remover.\n"))
+    item_num = get_int("Informe o numero do item que deseja remover.\n> ")
     if item_num <= len(store) :
         item_name =list(store.keys()) [item_num - 1]
         del store[item_name]
         print("Item removido com sucesso!")
+    else :
+        print(f"O item {item_num} não consta na lista.")
 
 
 # Listando itens
@@ -55,9 +62,28 @@ def check_stock() :
 
 # Atualizando item
 def update_item() :
-    item_num = int(input("Informe o numero do item que deseja atualizar.\n > "))
+    item_num = get_int("Informe o numero do item que deseja atualizar.\n > ")
     if item_num <= len(store) :
         item_name = list(store.keys()) [item_num - 1]
         del store[item_name]
         create_item()
         print("Item atualizado com sucesso!")
+    else :
+        print(f"O item {item_num} não consta na lista.")
+
+
+
+# Funções para tratemento de erro
+def get_float(message) :
+    while True :
+        try :
+            return float(input(message))
+        except ValueError :
+            print("Digite um numero válido e com a separação decimal por ponto(.)")
+
+def get_int(message) : 
+    while True :
+        try :
+            return int(input(message))
+        except ValueError :
+            print("Digite um valor númerico.")
