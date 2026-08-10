@@ -40,12 +40,15 @@ def create_item() :
 # Deletando itens
 def delete_item() :
     item_num = get_int("Informe o numero do item que deseja remover.\n> ")
-    if item_num <= len(store) :
-        item_name =list(store.keys()) [item_num - 1]
-        del store[item_name]
-        print("Item removido com sucesso!")
-    else :
-        print(f"O item {item_num} não consta na lista.")
+    while True :
+        if 1 <= item_num <= len(store) :
+            item_name =list(store.keys()) [item_num - 1]
+            del store[item_name]
+            print("Item removido com sucesso!")
+            break
+        else :
+            print(f"O item {item_num} não consta na lista.")
+            item_num = get_int("Informe o numero do item que deseja remover.\n> ")
 
 
 # Listando itens
@@ -63,13 +66,16 @@ def check_stock() :
 # Atualizando item
 def update_item() :
     item_num = get_int("Informe o numero do item que deseja atualizar.\n > ")
-    if item_num <= len(store) :
-        item_name = list(store.keys()) [item_num - 1]
-        del store[item_name]
-        create_item()
-        print("Item atualizado com sucesso!")
-    else :
-        print(f"O item {item_num} não consta na lista.")
+    while True :
+        if 1 <= item_num <= len(store) :
+            item_name = list(store.keys()) [item_num - 1]
+            del store[item_name]
+            create_item()
+            print("Item atualizado com sucesso!")
+            break
+        else :
+            print(f"O item {item_num} não consta na lista.")
+            item_num = get_int("Informe o numero do item que deseja atualizar.\n > ")
 
 
 
