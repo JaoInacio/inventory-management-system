@@ -44,6 +44,10 @@ def saving() :
 # Carregando arquivos .json
 def load_file() :
     file_name = input("Qual o nome do arquivo deseja carregar?\n > ")
+    
+    if ".json" not in file_name :
+        file_name = f"{file_name}.json"
+    
     with open(file_name, "r", encoding = "utf-8") as file :
         content = json.load(file)
         
