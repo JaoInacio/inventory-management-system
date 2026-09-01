@@ -1,14 +1,14 @@
 # Importando modulo
 from modules.variables import (
     store,
-    div,
-    file_name
+    div
 )
+import modules.variables as variables
 import json
 
 # Contem o menu
 def show_menu() :
-    menu_itens = " 1 - Adicionar\n 2 - Remover\n 3 - Atualizar\n 4 - Listar\n 5 - Consultar Estoque\n 6 - Carregar Dados\n 7 - Sair"
+    menu_itens = " 1 - Adicionar\n 2 - Remover\n 3 - Atualizar\n 4 - Listar\n 5 - Consultar Estoque\n 6 - Carregar Dados\n 7 - Salvar Dados\n 8 - Sair"
     print(menu_itens)
 
 
@@ -22,25 +22,35 @@ def get_option() :
         print("Digite apenas números.")
 
 # Salvando arquivos Json
-def save_file() :
-    global file_name
+def save_file(file_name:str) :
     if ".json" not in file_name :
         file_name = f"{file_name}.json"
-        
+    
     with open(file_name, "w", encoding = "utf-8") as arquivo :
         arquivo.write(json.dumps(store, indent = 4, ensure_ascii = False))
 
+# Criando metodo para salvar
+def saving() :
+    question = input("Deseja salvar em um novo arquivo?\n > ")
+    if "S" in question.upper() :
+        variables.file_name = input("Qual nome do arquivo deseja criar?\n > ")
+        save_file(variables.file_name)
+    else :
+        save_file(variables.file_name)
+        print("Arquivo salvo com sucesso!")
+
+
+
 # Carregando arquivos .json
-def load_file(file_name:str) :
-    with open(file_name, "r", encoding = "utf-8") as file :
-        content = file.read()
-        content = json.loads(content)
+def load_file() :
+    with open(variables.file_name, "r", encoding = "utf-8") as file :
+        content = json.load(file)
+        
         
         store.clear()
         store.update(content)
         
         print("Carregado com sucesso!")
-        return
 
 # Criando itens
 def create_item() :
@@ -54,7 +64,6 @@ def create_item() :
         "descricao" : description,
         "valor" : value
     }
-    save_file()
 
 # Deletando itens
 def delete_item() :
@@ -68,7 +77,6 @@ def delete_item() :
         else :
             print(f"O item {item_num} não consta na lista.")
             item_num = get_int("Informe o numero do item que deseja remover.\n> ")
-    save_file()
 
 
 # Listando itens
@@ -96,7 +104,6 @@ def update_item() :
         else :
             print(f"O item {item_num} não consta na lista.")
             item_num = get_int("Informe o numero do item que deseja atualizar.\n > ")
-    save_file()
 
 
 

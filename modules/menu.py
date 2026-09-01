@@ -7,14 +7,13 @@ from modules.crud import (
     list_items,
     update_item,
     check_stock,
-    save_file,
+    saving,
     load_file
 )
 
 from modules.variables import (
     div,
-    done,
-    file_name
+    done
 )
 
 def view_menu() :
@@ -43,8 +42,10 @@ def view_menu() :
         elif option == 5 :
             check_stock()
         elif option == 6 :
-            load_file(file_name)
-        elif option == 7 :
+            load_file()
+        elif option == 7 : 
+            saving()
+        elif option == 8 :
             print("Encerrando sistema!")
             done = True
         else :
