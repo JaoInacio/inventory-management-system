@@ -21,13 +21,7 @@ def get_option() :
     except ValueError:
         print("Digite apenas números.")
 
-# Salvando arquivos Json
-def save_file(file_name:str) :
-    if ".json" not in file_name :
-        file_name = f"{file_name}.json"
-    
-    with open(file_name, "w", encoding = "utf-8") as arquivo :
-        arquivo.write(json.dumps(store, indent = 4, ensure_ascii = False))
+
 
 
 # Criando itens
@@ -89,16 +83,26 @@ def saving() :
     if "S" in question.upper() :
         variables.file_name = input("Qual nome do arquivo deseja criar?\n > ")
         save_file(variables.file_name)
+        print("Arquivo salvo com sucesso!")
     else :
-        save_file(variables.file_name)
+        list_json_files()
+        saved_file = input("Escolha em qual arquivo deseja salvar:\n > ")
+        save_file(saved_file)
         print("Arquivo salvo com sucesso!")
 
-
+# Salvando arquivos Json
+def save_file(file_name:str) :
+    if ".json" not in file_name :
+        file_name = f"{file_name}.json"
+    
+    with open(file_name, "w", encoding = "utf-8") as arquivo :
+        arquivo.write(json.dumps(store, indent = 4, ensure_ascii = False))
 
 # Carregando arquivos .json
 def load_file() :
+    # Função que lista os arquivos para o usuario
+    list_json_files()
     file_name = input("Qual o nome do arquivo deseja carregar?\n > ")
-    
     if ".json" not in file_name :
         file_name = f"{file_name}.json"
     
@@ -112,7 +116,19 @@ def load_file() :
         
         print("Carregado com sucesso!")
 
-
+# Listando arquivos json
+def list_json_files() :
+    files = os.listdir()
+    
+    json_files = [
+        file for file in files
+        if file.endswith(".json")
+    ]
+    
+    files_list = json_files
+    
+    for ordered, file in enumerate(files_list, start=1) :
+        print(f"{ordered} - {file}")
 
 # Funções para tratemento de erro
 def get_float(message) :
