@@ -1,13 +1,14 @@
 # Importando modulo
 from modules.variables import (
     store,
-    div
+    div,
+    file_name
 )
-
+import json
 
 # Contem o menu
 def show_menu() :
-    menu_itens = " 1 - Adicionar\n 2 - Remover\n 3 - Atualizar\n 4 - Listar\n 5 - Consultar Estoque\n 6 - Sair"
+    menu_itens = " 1 - Adicionar\n 2 - Remover\n 3 - Atualizar\n 4 - Listar\n 5 - Consultar Estoque\n 6 - Carregar Dados\n 7 - Sair"
     print(menu_itens)
 
 
@@ -20,7 +21,26 @@ def get_option() :
     except ValueError:
         print("Digite apenas números.")
 
+# Salvando arquivos Json
+def save_file() :
+    global file_name
+    if ".json" not in file_name :
+        file_name = f"{file_name}.json"
+        
+    with open(file_name, "w", encoding = "utf-8") as arquivo :
+        arquivo.write(json.dumps(store, indent = 4, ensure_ascii = False))
 
+# Carregando arquivos .json
+def load_file(file_name:str) :
+    with open(file_name, "r", encoding = "utf-8") as file :
+        content = file.read()
+        content = json.loads(content)
+        
+        store.clear()
+        store.update(content)
+        
+        print("Carregado com sucesso!")
+        return
 
 # Criando itens
 def create_item() :
@@ -34,8 +54,7 @@ def create_item() :
         "descricao" : description,
         "valor" : value
     }
-    
-
+    save_file()
 
 # Deletando itens
 def delete_item() :
@@ -49,6 +68,7 @@ def delete_item() :
         else :
             print(f"O item {item_num} não consta na lista.")
             item_num = get_int("Informe o numero do item que deseja remover.\n> ")
+    save_file()
 
 
 # Listando itens
@@ -76,6 +96,7 @@ def update_item() :
         else :
             print(f"O item {item_num} não consta na lista.")
             item_num = get_int("Informe o numero do item que deseja atualizar.\n > ")
+    save_file()
 
 
 

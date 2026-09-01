@@ -2,3 +2,4 @@
 done = False
 store = {}
 div = "=" * 50
+file_name = "controle_estoque.json"
