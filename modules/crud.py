@@ -4,7 +4,7 @@ from modules.variables import (
     div
 )
 import modules.variables as variables
-import json
+import json, os
 
 # Contem o menu
 def show_menu() :
@@ -29,33 +29,6 @@ def save_file(file_name:str) :
     with open(file_name, "w", encoding = "utf-8") as arquivo :
         arquivo.write(json.dumps(store, indent = 4, ensure_ascii = False))
 
-# Criando metodo para salvar
-def saving() :
-    question = input("Deseja salvar em um novo arquivo?\n > ")
-    if "S" in question.upper() :
-        variables.file_name = input("Qual nome do arquivo deseja criar?\n > ")
-        save_file(variables.file_name)
-    else :
-        save_file(variables.file_name)
-        print("Arquivo salvo com sucesso!")
-
-
-
-# Carregando arquivos .json
-def load_file() :
-    file_name = input("Qual o nome do arquivo deseja carregar?\n > ")
-    
-    if ".json" not in file_name :
-        file_name = f"{file_name}.json"
-    
-    with open(file_name, "r", encoding = "utf-8") as file :
-        content = json.load(file)
-        
-        
-        store.clear()
-        store.update(content)
-        
-        print("Carregado com sucesso!")
 
 # Criando itens
 def create_item() :
@@ -109,6 +82,35 @@ def update_item() :
         else :
             print(f"O item {item_num} não consta na lista.")
             item_num = get_int("Informe o numero do item que deseja atualizar.\n > ")
+
+# Criando metodo para salvar
+def saving() :
+    question = input("Deseja salvar em um novo arquivo?\n > ")
+    if "S" in question.upper() :
+        variables.file_name = input("Qual nome do arquivo deseja criar?\n > ")
+        save_file(variables.file_name)
+    else :
+        save_file(variables.file_name)
+        print("Arquivo salvo com sucesso!")
+
+
+
+# Carregando arquivos .json
+def load_file() :
+    file_name = input("Qual o nome do arquivo deseja carregar?\n > ")
+    
+    if ".json" not in file_name :
+        file_name = f"{file_name}.json"
+    
+    
+    with open(file_name, "r", encoding = "utf-8") as file :
+        content = json.load(file)
+        
+        
+        store.clear()
+        store.update(content)
+        
+        print("Carregado com sucesso!")
 
 
 
