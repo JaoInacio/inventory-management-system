@@ -1,240 +1,314 @@
 # 📦 Inventory Management System
 
-Um sistema de gerenciamento de inventário desenvolvido em **Python**, criado com o objetivo de praticar conceitos fundamentais da linguagem, organização de código e boas práticas de desenvolvimento.
+Sistema de gerenciamento de estoque desenvolvido em Python como projeto de estudo e prática de lógica de programação, estruturas de dados, modularização e manipulação de arquivos JSON.
 
-O projeto evoluiu gradualmente durante os estudos, passando de um único arquivo para uma estrutura modular utilizando funções reutilizáveis.
+O projeto começou como uma aplicação simples para gerenciamento de itens e foi evoluindo gradualmente, passando a utilizar uma estrutura modular e persistência dos dados em arquivos JSON.
 
 ---
 
-# 🚀 Funcionalidades
+## 🚀 Funcionalidades
 
-- ✅ Adicionar itens ao inventário
+Atualmente o sistema possui:
+
+- ✅ Adicionar itens ao estoque
 - ✅ Listar itens cadastrados
 - ✅ Atualizar itens
 - ✅ Remover itens
-- ✅ Menu interativo no terminal
-- ✅ Código modularizado
-- ✅ Organização em funções reutilizáveis
+- ✅ Consultar estoque
+- ✅ Salvar dados em arquivos JSON
+- ✅ Carregar dados de arquivos JSON
+- ✅ Listar arquivos JSON disponíveis no projeto
+- ✅ Escolher em qual arquivo JSON salvar os dados
+- ✅ Criar novos arquivos JSON
+- ✅ Menu interativo pelo terminal
+- ✅ Validação de entradas numéricas
+- ✅ Organização do código em módulos
 
 ---
 
-# 📂 Estrutura do projeto
+## 🛠️ Tecnologias utilizadas
+
+- Python 3
+- JSON
+- Git
+- GitHub
+
+### Bibliotecas utilizadas
+
+- `json` — leitura e escrita dos arquivos JSON
+- `os` — identificação dos arquivos JSON existentes no diretório
+
+---
+
+## 📂 Estrutura do projeto
 
 ```text
 inventory-management-system/
 │
-├── app.py                  # Arquivo principal
+├── app.py
 ├── README.md
 ├── .gitignore
 │
+├── controle_estoque.json
+├── estoque.json
+├── novo.json
+│
 └── modules/
-    ├── __init__.py         # (Opcional)
-    ├── crud.py             # Operações CRUD
-    ├── menu.py             # Lógica do menu (mostra opções, lê input, chama funções do CRUD, etc.)
-    └── variables.py        # Variáveis globais do sistema (ex.: done, store, div)
-```
+    ├── crud.py
+    ├── menu.py
+    └── variables.py
 
----
 
-# 🛠 Tecnologias utilizadas
 
-- Python 3
-- Git
-- GitHub
+app.py
 
----
+Arquivo responsável por iniciar a aplicação e chamar o menu principal.
 
-# ▶️ Como executar
+modules/menu.py
 
-Clone o repositório:
+Responsável pelo fluxo do menu e pela interação entre as opções escolhidas pelo usuário e as funções do sistema.
 
-```bash
-git clone https://github.com/JaoInacio/inventory-management-system.git
-```
+modules/crud.py
 
-Entre na pasta do projeto:
+Concentra as principais funcionalidades do sistema, incluindo:
 
-```bash
-cd inventory-management-system
-```
+criação de itens;
+listagem;
+atualização;
+exclusão;
+consulta do estoque;
+salvamento em JSON;
+carregamento de JSON;
+listagem dos arquivos JSON;
+validação de entradas.
+modules/variables.py
 
-Execute a aplicação:
+Centraliza algumas variáveis utilizadas pelo sistema, como:
 
-```bash
-python app.py
-```
+done = False
+store = {}
+div = "=" * 50
+file_name = None
+📋 Menu do sistema
 
----
+Ao executar o programa, o usuário encontra as seguintes opções:
 
-# 📖 Funcionamento
-
-Ao iniciar o programa, será exibido um menu interativo:
-
-```text
 1 - Adicionar
 2 - Remover
 3 - Atualizar
 4 - Listar
-5 - Sair
-```
+5 - Consultar Estoque
+6 - Carregar Dados
+7 - Salvar Dados
+8 - Sair
+📦 Estrutura dos dados
 
-O usuário pode cadastrar produtos, visualizar todos os itens cadastrados, atualizar informações ou remover itens do inventário.
-
----
-
-# 🧠 Conceitos praticados
-
-Durante o desenvolvimento deste projeto foram utilizados conceitos importantes de Python, como:
-
-- Funções
-- Modularização
-- CRUD (Create, Read, Update e Delete)
-- Dicionários
-- Estruturas condicionais (`if`, `elif`, `else`)
-- Estruturas de repetição (`while` e `for`)
-- Organização de código
-- Reutilização de funções
-- Separação de responsabilidades
-- Imports entre módulos
-- Boas práticas de nomenclatura
-- Versionamento com Git
-- Publicação no GitHub
-
----
-
-# 📈 Evolução do projeto
-
-## ✅ Estrutura inicial
-
-Primeira versão contendo:
-
-- menu principal;
-- cadastro de itens;
-- listagem de itens;
-- utilização de dicionários para armazenar os dados.
-
----
-
-## ✅ Organização das funções
-
-O código foi refatorado para separar responsabilidades em funções específicas, como:
-
-- `show_menu()`
-- `get_option()`
-- `create_item()`
-- `list_items()`
-- `delete_item()`
-- `update_item()`
-
-Essa organização reduziu a repetição de código e facilitou futuras manutenções.
-
----
-
-## ✅ Melhorias na estrutura de dados
-
-Os itens passaram a ser armazenados utilizando o próprio nome como chave do dicionário.
+Os produtos são armazenados em um dicionário Python.
 
 Exemplo:
 
-```python
 store = {
     "Notebook": {
-        "name": "Notebook",
+        "nome": "Notebook",
         "unidades": 8,
         "descricao": "Dell Inspiron",
         "valor": 3500.00
     }
 }
-```
 
-Essa abordagem tornou o gerenciamento dos itens mais simples e organizado.
+O nome do produto é utilizado como chave do dicionário, permitindo localizar e manipular os dados de forma mais organizada.
 
----
+💾 Persistência com JSON
 
-## ✅ Implementação completa do CRUD
+Uma das principais evoluções do projeto foi a implementação da persistência dos dados.
 
-O projeto passou a possuir todas as operações básicas de gerenciamento de dados:
+Anteriormente, os dados ficavam somente na memória enquanto o programa estava em execução.
 
-- Create
-- Read
-- Update
-- Delete
+Agora o sistema consegue transformar o dicionário store em JSON e armazená-lo em um arquivo.
 
----
+Exemplo:
 
-## ✅ Refatoração
+{
+    "Notebook": {
+        "nome": "Notebook",
+        "unidades": 8,
+        "descricao": "Dell Inspiron",
+        "valor": 3500.0
+    }
+}
 
-Durante o desenvolvimento foram realizadas diversas melhorias, como:
+Dessa forma, os dados podem continuar disponíveis mesmo depois que o programa é encerrado.
 
-- eliminação de código duplicado;
-- reutilização da função `create_item()` na atualização dos itens;
-- melhoria dos nomes das funções;
-- organização da lógica do menu.
+📁 Gerenciamento dos arquivos JSON
 
----
+O sistema também consegue identificar os arquivos .json existentes no diretório.
 
-## ✅ Modularização
+Exemplo:
 
-O projeto foi reorganizado em módulos.
+1 - estoque.json
+2 - controle_estoque.json
+3 - novo.json
 
-Antes:
+Isso permite ao usuário escolher um arquivo existente para carregar ou utilizar como destino para salvar os dados.
 
-```text
-inventory.py
-```
+Criar um novo arquivo
 
-Depois:
+Ao selecionar a opção de salvar, o sistema pergunta:
 
-```text
+Deseja salvar em um novo arquivo?
+> sim
+
+Caso a resposta seja positiva, o usuário informa o nome do arquivo:
+
+Qual nome do arquivo deseja criar?
+> meu_estoque
+
+O sistema adiciona a extensão .json quando necessário.
+
+Resultado:
+
+meu_estoque.json
+Utilizar um arquivo existente
+
+Caso o usuário escolha não criar um novo arquivo, o sistema apresenta os arquivos JSON disponíveis para que seja escolhido um arquivo existente.
+
+🔄 Operações CRUD
+
+O projeto implementa as quatro operações básicas de manipulação de dados:
+
+Operação	Função
+Create	create_item()
+Read	list_items()
+Update	update_item()
+Delete	delete_item()
+
+Essas operações permitem realizar o gerenciamento básico dos produtos cadastrados.
+
+🧠 Conceitos praticados
+
+Durante o desenvolvimento deste projeto estou praticando conceitos importantes de Python, como:
+
+Variáveis
+Strings
+Números
+Dicionários
+Listas
+Funções
+Parâmetros
+Retorno de funções
+if, elif e else
+while
+for
+enumerate()
+List comprehension
+try/except
+Manipulação de arquivos
+with open()
+JSON
+json.dumps()
+json.load()
+Modularização
+Imports entre módulos
+Organização de responsabilidades
+CRUD
+Git
+GitHub
+🧩 Modularização
+
+Uma das principais mudanças realizadas no projeto foi a separação do código em módulos.
+
+Antes
+
+O projeto concentrava as funcionalidades em um único arquivo.
+
+Atualmente
+
+O código foi dividido de acordo com suas responsabilidades:
+
+app.py
+   │
+   └── menu.py
+          │
+          └── crud.py
+                 │
+                 └── variables.py
+
+Essa organização facilita a manutenção do código e permite adicionar novas funcionalidades sem concentrar toda a lógica em um único arquivo.
+
+▶️ Como executar
+1. Clone o repositório
+git clone https://github.com/JaoInacio/inventory-management-system.git
+2. Entre na pasta
+cd inventory-management-system
+3. Execute o programa
+python app.py
+📈 Evolução do projeto
+
+O projeto vem sendo desenvolvido de forma incremental, acompanhando meu aprendizado em Python.
+
+Etapa 1 — Estrutura inicial
+Criação do menu
+Cadastro de itens
+Armazenamento utilizando dicionários
+Etapa 2 — CRUD
+
+Implementação das operações:
+
+Create
+Read
+Update
+Delete
+Etapa 3 — Modularização
+
+Separação das responsabilidades em:
+
 app.py
 modules/
-    ├── crud.py
-    └── variables.py
-```
+├── crud.py
+├── menu.py
+└── variables.py
+Etapa 4 — Persistência dos dados
 
-Essa separação tornou o projeto mais organizado, facilitando a manutenção e futuras expansões.
+Implementação da utilização de arquivos JSON para:
 
----
+salvar dados;
+carregar dados;
+criar novos arquivos;
+selecionar arquivos existentes;
+listar arquivos JSON disponíveis.
+Etapa 5 — Validação
 
-# 📚 Aprendizados
+Implementação de funções para validar entradas numéricas:
 
-Este projeto permitiu aprofundar conhecimentos em:
+get_int()
+get_float()
+🔮 Próximas melhorias
 
-- organização de projetos Python;
-- modularização;
-- manipulação de dicionários;
-- criação de funções reutilizáveis;
-- lógica de programação;
-- versionamento utilizando Git;
-- utilização do GitHub como portfólio.
+Algumas funcionalidades que pretendo estudar e implementar futuramente:
 
----
+ Melhorar o tratamento de erros
+ Validação mais completa dos dados
+ Busca de produtos
+ Controle de estoque mínimo
+ Melhor gerenciamento dos arquivos JSON
+ Separação dos arquivos de dados em uma pasta específica
+ Testes automatizados
+ Banco de dados SQLite
+ Interface gráfica
+📚 Objetivo do projeto
 
-# 🔮 Próximas melhorias
+Mais do que criar um sistema de estoque, este projeto está sendo utilizado para transformar os conceitos estudados em Python em uma aplicação prática.
 
-- [ ] Persistência dos dados utilizando JSON
-- [ ] Tratamento de exceções (`try/except`)
-- [ ] Validação das entradas do usuário
-- [ ] Busca de itens por nome
-- [ ] Controle de estoque mínimo
-- [ ] Interface gráfica
-- [ ] Banco de dados SQLite
-- [ ] Testes automatizados
+A cada nova funcionalidade, estou buscando entender não apenas como fazer o código funcionar, mas também como organizar melhor o projeto, reutilizar funções, separar responsabilidades e trabalhar com persistência de dados.
 
----
+👨‍💻 Autor
 
-# 👨‍💻 Autor
+João Inácio
 
-**João Inácio**
-
-🔗 GitHub
-
+🔗 GitHub:
 https://github.com/JaoInacio
 
-🔗 LinkedIn
-
+🔗 LinkedIn:
 https://www.linkedin.com/in/joão-inácio-979b71209/
 
----
-
-### ⭐ Caso este projeto tenha sido útil ou interessante para você, deixe uma estrela no repositório!
+⭐ Se você quiser acompanhar a evolução do projeto, fique à vontade para explorar o repositório.
